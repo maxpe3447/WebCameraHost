@@ -1,0 +1,288 @@
+﻿<Window x:Class="WebCamHost.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebCamHost"
+        mc:Ignorable="d"
+        xmlns:prism="http://prismlibrary.com/" 
+        d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Title="{Binding Title}" Height="450" Width="800" >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.RowSpan="2"
+                  ItemsSource="{Binding WebCamers}"
+                  SelectedItem="{Binding SelectedCamera}"
+                  Background="#78A5A3"
+                  >
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Background="#E1B16A"
+                                Opacity="{Binding Opacity}"
+                                Width="190">
+                        <Label Content="{Binding Name}"
+                           FontSize="25"
+                           FontWeight="Bold"
+                               />
+                        
+                        <Label Content="{Binding Description}"
+                           FontSize="20"
+                           FontWeight="Bold"/>
+                        
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              Background="#CE5A57">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding StartShowCommand}"
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                    >
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin="10, 5 10, 10" Background="#444C5C">
+                            <TextBlock Text="Start show"
+                                       Margin="0,5,0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="16.5"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="0" 
+                   Height="5" 
+                   Margin="15, 7, 15, 20" 
+                   VerticalAlignment="Top" 
+                   Background="{Binding CameraStartFrame}"/>
+            <Button Command="{Binding StopShowCommand}"
+                    Grid.Column="0"
+                    VerticalAlignment="Bottom">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin="10, 35, 10, 5" Background="#444C5C">
+                            <TextBlock Text="Stop show"
+                                       Margin="0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="16.5"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="0" 
+                   Height="5" 
+                   Margin="15, 0, 15, 7" 
+                   VerticalAlignment="Bottom" 
+                   Background="{Binding CameraStopFrame}"/>
+
+            <Button Command="{Binding StartServerCommand}"
+                    Grid.Column="1"
+                    VerticalAlignment="Top">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin=" 10, 5 10, 10" Background="#444C5C">
+                            <TextBlock Text="Start stream"
+                                       Margin="0,5,0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="15"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="1" 
+                   Height="5" 
+                   Margin="15, 7, 15, 20" 
+                   VerticalAlignment="Top" 
+                   Background="{Binding ServerStartFrame}"/>
+            <Button Command="{Binding StopServerCommand}"
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin="10, 0, 10, 5" Background="#444C5C">
+                            <TextBlock Text="Stop stream"
+                                       Margin="0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="15"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="1" 
+                   Height="5" 
+                   Margin="15, 0, 15, 7" 
+                   VerticalAlignment="Bottom" 
+                   Background="{Binding ServerStopFrame}"/>
+
+            <Button Command="{Binding StartRecordCommand}"
+                    Grid.Column="2"
+                    VerticalAlignment="Top">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin=" 10, 5 10, 10" Background="#444C5C">
+                            <TextBlock Text="Start record"
+                                       Margin="0,5,0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="15"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="2" 
+                   Height="5" 
+                   Margin="15, 7, 15, 20" 
+                   VerticalAlignment="Top" 
+                   Background="{Binding RecordStartFrame}"/>
+            <Button Command="{Binding StopRecordCommand}"
+                    Grid.Column="2"
+                    VerticalAlignment="Bottom">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin="10, 0, 10, 5" Background="#444C5C">
+                            <TextBlock Text="Stop record"
+                                       Margin="0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="15"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="2" 
+                   Height="5" 
+                   Margin="15, 0, 15, 7" 
+                   VerticalAlignment="Bottom" 
+                   Background="{Binding RecordStopFrame}"/>
+
+            <Button Command="{Binding PeopleSearchCommand}"
+                    Grid.Column="3">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin=" 10" Background="#444C5C">
+                            <TextBlock
+                                       Margin="0,5,0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="15"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center">
+                                Search<LineBreak/>people
+                            </TextBlock>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Frame Grid.Column="3" 
+                   Height="5" 
+                   Margin="15, 0, 15, 15" 
+                   VerticalAlignment="Bottom" 
+                   Background="{Binding PeopleSearchFrame}"/>
+
+            <Button Command="{Binding CheckClientCommand}"
+                    Grid.Column="4">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin=" 10" Background="#444C5C">
+                            <TextBlock Margin="0,5,0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="14"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center">
+                                Check client<LineBreak/>
+                                connection
+                            </TextBlock>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            
+            <Button Command="{Binding ShowRecordsCommand}"
+                    Grid.Column="5">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin=" 10" Background="#444C5C">
+                            <TextBlock Margin="0,5,0,5"
+                                       Foreground="#E1B16A"
+                                       FontSize="14"
+                                       Width="Auto" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center">
+                                Show <LineBreak/> records
+                            </TextBlock>
+                        </Border>
+
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
+        <Image Grid.Row="1"
+               Grid.Column="1"
+               Source="{Binding MainImg}"
+               Stretch="Uniform"/>
+    </Grid>
+</Window>

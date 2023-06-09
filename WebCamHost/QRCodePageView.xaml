@@ -1,0 +1,44 @@
+﻿<Window x:Class="WebCamHost.QRCodePageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebCamHost"
+        mc:Ignorable="d"
+        Title="QR-Code" Height="410" Width="270"
+        Background="#444C5C">
+    <StackPanel>
+    <Grid>
+        <Border CornerRadius="20"
+                HorizontalAlignment="Center"
+                Height="210"
+                Width="210"
+                VerticalAlignment="Top">
+            <Border.Background>
+                <SolidColorBrush Color="#CE5A57"/>
+            </Border.Background>
+        </Border>
+
+            <Border CornerRadius="20"
+                HorizontalAlignment="Center"
+                Height="200"
+                Width="200"
+                VerticalAlignment="Top" Margin="5">
+                <Border.Background>
+                    <ImageBrush x:Name="image" Stretch="Fill"/>
+                </Border.Background>
+            </Border>
+
+        </Grid>
+        <Label Content="Scan to connect..."
+               FontSize="25"
+               HorizontalAlignment="Center"/>
+        <Label Content="----OR----"
+               FontSize="25"
+               HorizontalAlignment="Center"/>
+        <Label Content="Host\Port:"
+               FontSize="25"
+               HorizontalAlignment="Center"
+               x:Name="HostPort"/>
+    </StackPanel>
+</Window>
